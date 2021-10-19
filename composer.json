@@ -1,9 +1,10 @@
 {
-    "name": "tatu/laravel-translations-deepl",
+    "name": "blacklabelbytes/laravel-translations-deepl",
+    "version": "1.0.0",
     "type": "library",
+    "license": "MIT",
     "require": {
-        "babymarkt/deepl-php-lib": "^3.0",
-        "illuminate/support": "^8.64"
+        "babymarkt/deepl-php-lib": "^3.0"
     },
     "authors": [
         {
