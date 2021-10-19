@@ -14,16 +14,33 @@
     ],
 
     "autoload": {
-        "psr4": {
+        "psr-4": {
             "BlackLabelBytes\\Translations\\": "src/"
+        }
+
+    },
+    
+    "autoload-dev": {
+        "psr-4": {
+            "Tests\\": "tests/"
         }
     },
 
     "extra": {
         "laravel": {
             "providers": [
-                "BlackLabelBytes\\Translations\\ServiceProvider"
+                "BlackLabelBytes\\Translations\\DeepLTranslationServiceProvider"
             ]
         }
+    },
+    
+    "require-dev": {
+        "orchestra/testbench": "^6.21",
+        "phpunit/phpunit": "^9.5"
+    },
+    "scripts": {
+        "test": "./vendor/bin/phpunit"
+     
     }
+ 
 }
