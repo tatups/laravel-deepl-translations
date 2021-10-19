@@ -1,29 +1,35 @@
-# README #
+# Translation generation package
 
-This README would normally document whatever steps are necessary to get your application up and running.
+Script for autogenerating missing translations from the files of a defined source language to the other languages through the DeepL api
+## Installation
 
-### What is this repository for? ###
+Register the package repository:
 
-* Quick summary
-* Version
-* [Learn Markdown](https://bitbucket.org/tutorials/markdowndemo)
+```
+"repositories":[
+        {
+        "type": "git",
+        "url": "https://bitbucket.org/blacklabelbytes/laravel-deepl-translations.git"
+    }
+]
+```
 
-### How do I get set up? ###
+Require the package:
 
-* Summary of set up
-* Configuration
-* Dependencies
-* Database configuration
-* How to run tests
-* Deployment instructions
+```
+"require-dev":[
+    "blacklabelbytes/laravel-deepl-translations": "^1.0"
+]
+```
 
-### Contribution guidelines ###
+Then Publish the api config
+```
+php artisan vendor:publish --provider="BlackLabelBytes\Translations\DeepLTranslationServiceProvider"
+```
 
-* Writing tests
-* Code review
-* Other guidelines
 
-### Who do I talk to? ###
+## Usage 
 
-* Repo owner or admin
-* Other community or team contact
+- Input your api key and other options to the published config file deepl-translations.php
+- Run the ```php artisan deepl-translate``` command
+
