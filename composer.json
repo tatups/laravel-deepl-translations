@@ -1,6 +1,7 @@
 {
     "name": "blacklabelbytes/laravel-translations-deepl",
     "version": "1.0.0",
+    "description": "Generates translation files using DeepL API",
     "type": "library",
     "license": "MIT",
     "require": {
