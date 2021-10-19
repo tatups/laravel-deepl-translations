@@ -1,0 +1,28 @@
+{
+    "name": "tatu/laravel-translations-deepl",
+    "type": "library",
+    "require": {
+        "babymarkt/deepl-php-lib": "^3.0",
+        "illuminate/support": "^8.64"
+    },
+    "authors": [
+        {
+            "name": "Tatu Puskala",
+            "email": "tatu@blb.fi"
+        }
+    ],
+
+    "autoload": {
+        "psr4": {
+            "BlackLabelBytes\\Translations\\": "src/"
+        }
+    },
+
+    "extra": {
+        "laravel": {
+            "providers": [
+                "BlackLabelBytes\\Translations\\ServiceProvider"
+            ]
+        }
+    }
+}
