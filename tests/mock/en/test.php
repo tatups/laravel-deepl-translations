@@ -1,4 +1,11 @@
 <?php return array (
-  'key' => 'hii',
-  'key2' => 'huu',
+  'key' => 'value',
+  'placeholders_containing_key' => 'value :placeholder1 :placeholder2',
+  'nested' => 
+  array (
+    'more_nesting' => 
+    array (
+      'key' => 'value',
+    ),
+  ),
 ) ;

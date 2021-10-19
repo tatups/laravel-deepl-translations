@@ -1,13 +1,12 @@
 <?php
 
-namespace Tests\Unit;
+namespace Tests\Feature;
 
-use BlackLabelBytes\Translations\Domain\TranslatableChunk;
-use BlackLabelBytes\Translations\TranslationRepository;
+use BlackLabelBytes\Translations\Domain\TranslationRepository;
 use BlackLabelBytes\Translations\Domain\TranslationString;
 use Tests\TestCase;
 
-class TranslateCommandTest extends TestCase
+class TranslationRepositoryTest extends TestCase
 {
 
 
