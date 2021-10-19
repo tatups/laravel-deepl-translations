@@ -1,5 +1,5 @@
 {
-    "name": "blacklabelbytes/laravel-translations-deepl",
+    "name": "blacklabelbytes/laravel-deepl-translations",
     "version": "1.0.0",
     "description": "Generates translation files using DeepL API",
     "type": "library",
