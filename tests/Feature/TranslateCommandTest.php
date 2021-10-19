@@ -24,7 +24,7 @@ class TranslateCommandTest extends TestCase
                 [
                     ['text'=>'should not override'], 
                     ['text'=>'translated hii'], 
-                    ['text'=>'translated huu', 'idc'=>'idc']
+                    ['text'=>'translated huu <x>:placeholder</x>', 'idc'=>'idc']
                 ];
 
                 $mock->allows(['translate'=>$returnTranslations]);
@@ -63,7 +63,7 @@ class TranslateCommandTest extends TestCase
         $expected = [
             'should_not_override'=>$existing,
             'key'=>'translated hii',
-            'key2'=>'translated huu'
+            'key2'=>'translated huu :placeholder'
         ];
     
         $this->assertEquals($result, $expected);
