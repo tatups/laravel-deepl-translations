@@ -22,6 +22,7 @@ class TranslateCommandTest extends TestCase
 
                 $returnTranslations = 
                 [
+                    ['text'=>'should not override'], 
                     ['text'=>'translated hii'], 
                     ['text'=>'translated huu', 'idc'=>'idc']
                 ];
@@ -40,14 +41,19 @@ class TranslateCommandTest extends TestCase
         config(['deepl-translations.to_languages'=>['fi']]);
 
         $data = [
+            'should_not_override'=>'should_not_override',
             'key'=>'hii',
             'key2'=>'huu'
+        ];
+
+        $existingTranslations = [
+            'should_not_override'=>$existing='i should not be overridden'
         ];
        
         file_put_contents(__DIR__.'/../mock/en/test.php', "<?php return ".var_export($data, true).' ;');
 
         //initialize with empty
-        file_put_contents(__DIR__.'/../mock/fi/test.php', "<?php return ".var_export([], true).' ;');
+        file_put_contents(__DIR__.'/../mock/fi/test.php', "<?php return ".var_export($existingTranslations, true).' ;');
 
 
         Artisan::call('deepl-translate');
@@ -55,6 +61,7 @@ class TranslateCommandTest extends TestCase
         $result = require __DIR__.'/../mock/fi/test.php';
 
         $expected = [
+            'should_not_override'=>$existing,
             'key'=>'translated hii',
             'key2'=>'translated huu'
         ];
