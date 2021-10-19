@@ -1,9 +1,8 @@
 <?php return [
-    'should_not_override' => 'i should not be overridden',
-    'key' => 'translated hii',
-    'key2' => 'translated huu :placeholder',
+    'key' => 'existing_value',
+    'key2' => 'finnish translation result',
     'nested' => [
-        'should_not_override' => 'i should not be overridden',
-        'nested_key' => 'translated nested value',
+        'key' => 'finnish translation result with :placeholder',
+        'key2' => 'finnish translation result 2',
     ],
 ];
