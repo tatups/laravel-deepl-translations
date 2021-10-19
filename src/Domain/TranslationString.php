@@ -40,6 +40,7 @@ class TranslationString
     }
 
 
+
     public static function makeFromKeyWithFilename(string $key, string $value) {
         list($filename, $key) = explode('.', $key, 2);
 

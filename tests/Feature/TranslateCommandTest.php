@@ -24,7 +24,10 @@ class TranslateCommandTest extends TestCase
                 [
                     ['text'=>'should not override'], 
                     ['text'=>'translated hii'], 
-                    ['text'=>'translated huu <x>:placeholder</x>', 'idc'=>'idc']
+                    ['text'=>'translated huu <x>:placeholder</x>', 'idc'=>'idc'],
+                    ['text'=>'translated nested value that should not override'],
+                    ['text'=>'translated nested value']
+
                 ];
 
                 $mock->allows(['translate'=>$returnTranslations]);
@@ -41,13 +44,20 @@ class TranslateCommandTest extends TestCase
         config(['deepl-translations.to_languages'=>['fi']]);
 
         $data = [
-            'should_not_override'=>'should_not_override',
+            'should_not_override'=>'this_value_should_not_override',
             'key'=>'hii',
-            'key2'=>'huu'
+            'key2'=>'huu',
+            'nested'=>[
+                'should_not_override'=>'this_value_should_not_override',
+                'nested_key'=>'nested value'
+            ]
         ];
 
         $existingTranslations = [
-            'should_not_override'=>$existing='i should not be overridden'
+            'should_not_override'=>$existing='i should not be overridden',
+            'nested'=>[
+                'should_not_override'=>$existing
+            ]
         ];
        
         file_put_contents(__DIR__.'/../mock/en/test.php', "<?php return ".var_export($data, true).' ;');
@@ -63,9 +73,13 @@ class TranslateCommandTest extends TestCase
         $expected = [
             'should_not_override'=>$existing,
             'key'=>'translated hii',
-            'key2'=>'translated huu :placeholder'
+            'key2'=>'translated huu :placeholder',
+            'nested'=>[
+                'should_not_override'=>$existing,
+                'nested_key'=>'translated nested value'
+            ]
         ];
-    
+     
         $this->assertEquals($result, $expected);
     }
 

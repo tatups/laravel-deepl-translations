@@ -42,9 +42,10 @@ class TranslationRepositoryTest extends TestCase
             'key'=>'value',
             'placeholders_containing_key'=>'value :placeholder1 :placeholder2',
             'nested'=>[
+                'nested_key'=>'nested value',
                 'more_nesting'=>[
                     'key'=>'value'
-                ]
+                ],
             ]
         ];
        
@@ -54,10 +55,12 @@ class TranslationRepositoryTest extends TestCase
         $results = $repo->getTranslatables('en')->first()->getKeyedTranslatables();
 
         
-        $this->assertEquals(3, $results->count());
+        $this->assertEquals(4, $results->count());
      
         $this->assertEquals('value', $results->get('test.key')->getValue());
         $this->assertEquals('value <x>:placeholder1</x> <x>:placeholder2</x>', $results->get('test.placeholders_containing_key')->getValue());
+        $this->assertEquals('nested value', $results->get('test.nested.nested_key')->getValue());
+
         $this->assertEquals('value', $results->get('test.nested.more_nesting.key')->getValue());
     }
 
@@ -74,7 +77,9 @@ class TranslationRepositoryTest extends TestCase
         $translationResults = collect([
             new TranslationString('test.php', 'key', 'should not override'),
             new TranslationString('test.php', 'key2', 'finnish translation result'),
-            new TranslationString('test.php', 'nested.key', 'finnish translation result with :placeholder')
+            new TranslationString('test.php', 'nested.key', 'finnish translation result with :placeholder'),
+            new TranslationString('test.php', 'nested.key2', 'finnish translation result 2')
+
         ]);
         
         $repo->storeTranslationStrings($translationResults, 'fi');
@@ -85,11 +90,12 @@ class TranslationRepositoryTest extends TestCase
             'key'=>'existing_value',
             'key2'=>'finnish translation result',
             'nested'=>[
-                'key'=>'finnish translation result with :placeholder'
+                'key'=>'finnish translation result with :placeholder',
+                'key2'=>'finnish translation result 2'
+
             ]
 
         ];
-      
         $this->assertEquals($excected, $result);
     }
 

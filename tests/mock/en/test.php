@@ -1,11 +1,10 @@
 <?php return array (
-  'key' => 'value',
-  'placeholders_containing_key' => 'value :placeholder1 :placeholder2',
+  'should_not_override' => 'this_value_should_not_override',
+  'key' => 'hii',
+  'key2' => 'huu',
   'nested' => 
   array (
-    'more_nesting' => 
-    array (
-      'key' => 'value',
-    ),
+    'should_not_override' => 'this_value_should_not_override',
+    'nested_key' => 'nested value',
   ),
 ) ;

@@ -88,21 +88,28 @@ class TranslationRepository
         if(!is_dir($toPath)) {
             mkdir($toPath);
         }
-       
+        
         $newFiles = $results->groupBy->getFilename()->map(function($group) {
+         
             return $group->reduce(function($carry, $item) {
-                return $carry->merge($item->toArray());
+                return $carry->put($item->getKey(), $item->getValue());
             }, collect());
         });
-        
+            
         foreach($newFiles as $filename => $translations) {
 
             $filePath = $toPath.DIRECTORY_SEPARATOR.$filename;
 
-            $existing = file_exists($filePath) ? require $filePath : [];
+            $existing = file_exists($filePath) ? Arr::dot(require $filePath) : [];
         
             //Merge not overwriting existing values
-            $new = $translations->merge($existing)->toArray();
+            $merged = $translations->merge($existing);
+            
+            $new = [];
+            //Convert from dot keyed to multidimensional array
+            foreach($merged as $key => $value) {
+                Arr::set($new, $key, $value);
+            }
             //To the final format
             $new = $this->varExport($new);
                

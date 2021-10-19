@@ -30,15 +30,15 @@ class TranslationService
             foreach($translatableChunks as $chunk) {
 
                 $translatables = $chunk->getTranslatableStrings()->toArray();
-            
+               
                 $results = collect($this->translationClient->translate($translatables, $fromLanguage, $locale));
-
+             
                 $values = $results->map(function($item) {
                     return $item['text'];
                 });
-
+           
                 $localeResults = $localeResults->merge($chunk->getTranslationStrings($values));
-            
+         
             }
             $this->repo->storeTranslationStrings($localeResults, $locale);
         }

@@ -37,9 +37,6 @@ class DeepLTranslationServiceProvider extends \Illuminate\Support\ServiceProvide
             });
         }
         
-     
-        
-
     }
 
     public function boot() {
