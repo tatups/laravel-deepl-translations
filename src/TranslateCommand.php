@@ -22,17 +22,8 @@ class TranslateCommand extends Command
      *
      * @var string
      */
-    protected $description = 'Translate your english language files into sv,fi';
+    protected $description = 'Translate your language files';
 
-
-    protected DeepL $deepl;
-    
-    protected string $basePath;
-
-    protected string $fromLanguage;
-
-    protected array $toLanguages;
-    
     public function __construct()
     {
         parent::__construct();
@@ -46,13 +37,5 @@ class TranslateCommand extends Command
         
         
         return Command::SUCCESS;
-
-
     }
-
- 
-
- 
-
-  
 }

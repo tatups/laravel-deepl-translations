@@ -12,6 +12,7 @@ class DeepLTranslationServiceProvider extends \Illuminate\Support\ServiceProvide
 
     public function register() {
 
+
         $this->mergeConfig();
 
         if ($this->app->runningInConsole()) {
