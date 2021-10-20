@@ -22,7 +22,7 @@ Require the package:
 ]
 ```
 
-Then Publish the api config
+Normally the api config is derived from .env variables. You can also publish it:
 ```
 php artisan vendor:publish --provider="BlackLabelBytes\Translations\DeepLTranslationServiceProvider"
 ```
@@ -30,6 +30,7 @@ php artisan vendor:publish --provider="BlackLabelBytes\Translations\DeepLTransla
 
 ## Usage 
 
-- Input your api key and other options to the published config file deepl-translations.php
 - Run the ```php artisan deepl-translate``` command
+- For the first time setup, follow the insctructions given by the command to set your the DeepL configuration
+
 
