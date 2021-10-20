@@ -13,34 +13,39 @@ class TranslationService
     /** @var DeepL $translationClient */
     protected $translationClient;
 
+
     public function __construct(TranslationRepository $repo, DeepL $translationClient)
     {
         $this->repo = $repo;
         $this->translationClient = $translationClient;
     }
 
-    public function translate(string $fromLanguage, array $toLanguages) {
+    /**
+     *
+     * @param string $fromLanguage
+     * @param string $toLanguage
+     * @return void
+     */
+    public function translate(string $fromLanguage, string $toLanguage) {
 
         $translatableChunks = $this->repo->getTranslatables($fromLanguage);
+
+        $localeResults = collect();
+
+        foreach($translatableChunks as $chunk) {
+
+            $translatables = $chunk->getTranslatableStrings()->toArray();
+            
+            $results = collect($this->translationClient->translate($translatables, $fromLanguage, $toLanguage));
+            
+            $values = $results->map(function($item) {
+                return $item['text'];
+            });
         
-        foreach ($toLanguages as $locale) {
-
-            $localeResults = collect();
-
-            foreach($translatableChunks as $chunk) {
-
-                $translatables = $chunk->getTranslatableStrings()->toArray();
-               
-                $results = collect($this->translationClient->translate($translatables, $fromLanguage, $locale));
-             
-                $values = $results->map(function($item) {
-                    return $item['text'];
-                });
-           
-                $localeResults = $localeResults->merge($chunk->getTranslationStrings($values));
-         
-            }
-            $this->repo->storeTranslationStrings($localeResults, $locale);
+            $localeResults = $localeResults->merge($chunk->getTranslationStrings($values));
+        
         }
+        $this->repo->storeTranslationStrings($localeResults, $toLanguage);
+        
     }
 }

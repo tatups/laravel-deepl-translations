@@ -1,8 +1,7 @@
-<?php return [
-    'key' => 'existing_value',
-    'key2' => 'finnish translation result',
-    'nested' => [
-        'key' => 'finnish translation result with :placeholder',
-        'key2' => 'finnish translation result 2',
-    ],
-];
+<?php return array (
+  'should_not_override' => 'i should not be overridden',
+  'nested' => 
+  array (
+    'should_not_override' => 'i should not be overridden',
+  ),
+) ;
