@@ -76,6 +76,8 @@ class TranslateCommand extends Command
             $apiToLanguagesMissing =  empty(config('deepl-translations.to_languages'))
         ];
         $missingEnvs = !empty(array_filter($envCheck));
+
+        $first = true;
         if($missingEnvs) {
             $this->info('Missing configuration options.');
             $this->info('Please proceed to enter the missing options below. We will append them to your .env file');
@@ -83,24 +85,31 @@ class TranslateCommand extends Command
         }
         if($apiKeyMissing) {
             $value = $this->ask('Please enter your DeepL api key');
-            $this->writeNewEnvironmentFileWith(self::DEEPL_API_KEY, $value);
+            $this->writeNewEnvironmentFileWith(self::DEEPL_API_KEY, $value, $first);
+            $first = false;
         }
         if($apiAddressMissing) {
             $value = $this->ask('Please enter the DeepL api address [api-free.deepl.com]', 'api-free.deepl.com');
-            $this->writeNewEnvironmentFileWith(self::DEEPL_API_ADDRESS, $value);
+            $this->writeNewEnvironmentFileWith(self::DEEPL_API_ADDRESS, $value, $first);
+            $first = false;
+
         }
         if($apiFromLanguageMissing) {
             $value = $this->ask('Please enter translation source language [en]', 'en');
-            $this->writeNewEnvironmentFileWith(self::DEEPL_FROM_LANGUAGE, $value);
+            $this->writeNewEnvironmentFileWith(self::DEEPL_FROM_LANGUAGE, $value, $first);
+            $first = false;
+
         }   
         if($apiToLanguagesMissing) {
             $value = $this->ask('Please enter the languages you want to create translations for [fi,sv]', 'fi,sv');
-            $this->writeNewEnvironmentFileWith(self::DEEPL_TO_LANGUAGES, $value);
+            $this->writeNewEnvironmentFileWith(self::DEEPL_TO_LANGUAGES, $value, $first);
+            $first = false;
+
         }    
 
         if($missingEnvs) {
             $this->info('DeepL configuration initialized. Please run the command again to generate your translations.');
-            $this->info('Future updated to the configuration should be done to you .env file');
+            $this->info('Future updates to the configuration should be done to you .env file');
 
             return false;
         }
@@ -115,9 +124,11 @@ class TranslateCommand extends Command
      * @param  string  $value
      * @return void
      */
-    protected function writeNewEnvironmentFileWith(string $key, string $value)
+    protected function writeNewEnvironmentFileWith(string $key, string $value, bool $first)
     {
         $contents = file_get_contents($this->laravel->environmentFilePath());
+
+  
     
 
         if(str_contains($contents,  $key)) {
@@ -129,6 +140,7 @@ class TranslateCommand extends Command
         }
         else {
             $newContent = $contents.PHP_EOL."$key=$value";
+            $newContent = $first ? PHP_EOL.$newContent : $newContent;
             file_put_contents($this->laravel->environmentFilePath(), $newContent);
         }
     }
