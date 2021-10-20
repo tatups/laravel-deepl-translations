@@ -104,7 +104,7 @@ class TranslateCommandTest extends TestCase
 
         $result = file_get_contents(app()->environmentFilePath());
 
-        $expected = PHP_EOL.TranslateCommand::DEEPL_API_KEY.'=hiihuu'.PHP_EOL;
+        $expected = PHP_EOL.PHP_EOL.TranslateCommand::DEEPL_API_KEY.'=hiihuu'.PHP_EOL;
         $expected.= TranslateCommand::DEEPL_API_ADDRESS.'=test.com'.PHP_EOL;
         $expected.= TranslateCommand::DEEPL_FROM_LANGUAGE.'=fi'.PHP_EOL;
         $expected.= TranslateCommand::DEEPL_TO_LANGUAGES.'=ru,sv';
