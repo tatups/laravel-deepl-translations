@@ -22,6 +22,10 @@ class TranslatableChunk
         return $this->translatables->map->getValue()->values();
     }
 
+    public function getTranslatableStringsWithoutTranslation(string $targetLocale) {
+        return $this->translatables->reject->existsFor($targetLocale)->map->getValue()->values();
+    }
+
     public function getKeyedTranslatables() {
         return $this->translatables;
     }

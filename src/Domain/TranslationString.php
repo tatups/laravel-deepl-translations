@@ -26,6 +26,12 @@ class TranslationString
         return $this->key;
     }
 
+    public function getFullTranslationKey() {
+        $baseFilename = explode('.', $this->getFilename())[0];
+
+        return $baseFilename.'.'.$this->getKey();
+    }
+
     public function getFilename() {
         return $this->filename;
     }
@@ -37,6 +43,11 @@ class TranslationString
         Arr::set($arr, $this->key, $this->value);
 
         return $arr;
+    }
+
+    public function existsFor(string $locale) {
+
+        return app('translator')->hasForLocale($this->getFullTranslationKey(), $locale);
     }
 
 

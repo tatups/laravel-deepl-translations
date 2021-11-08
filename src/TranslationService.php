@@ -33,8 +33,8 @@ class TranslationService
         $localeResults = collect();
 
         foreach($translatableChunks as $chunk) {
-
-            $translatables = $chunk->getTranslatableStrings()->toArray();
+          
+            $translatables = $chunk->getTranslatableStringsWithoutTranslation($toLanguage)->toArray();
             
             $results = collect($this->translationClient->translate($translatables, $fromLanguage, $toLanguage));
             

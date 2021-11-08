@@ -12,7 +12,19 @@ class TestCase extends \Orchestra\Testbench\TestCase
     {
         parent::setUp();
     }
-  
+
+    protected function tearDown(): void
+    {
+        $this->tearDownTheTestEnvironment();
+
+        if(file_exists(__DIR__."/mock/en/test.php")) {
+            unlink(__DIR__."/mock/en/test.php");
+        }
+        if(file_exists(__DIR__."/mock/fi/test.php")) {
+            unlink(__DIR__."/mock/fi/test.php");
+        }
+
+    }  
     protected function getPackageProviders($app)
     {
         return [

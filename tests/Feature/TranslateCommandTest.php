@@ -6,8 +6,11 @@ use BabyMarkt\DeepL\DeepL;
 use BlackLabelBytes\Translations\Domain\TranslationRepository;
 use BlackLabelBytes\Translations\TranslateCommand;
 use BlackLabelBytes\Translations\TranslationService;
+use Illuminate\Contracts\Translation\Translator;
 use Tests\TestCase;
 use Illuminate\Support\Facades\Artisan;
+use Illuminate\Translation\ArrayLoader;
+use Illuminate\Translation\Translator as TranslationTranslator;
 use Mockery\MockInterface;
 
 class TranslateCommandTest extends TestCase
@@ -70,9 +73,9 @@ class TranslateCommandTest extends TestCase
         //initialize with empty
         file_put_contents(__DIR__.'/../mock/fi/test.php', "<?php return ".var_export($existingTranslations, true).' ;');
 
-
-        Artisan::call('deepl-translate');
-
+        $this->artisan('deepl-translate')
+        ->expectsConfirmation('Are you sure you want to generate translations for your application?', 'yes');
+            
         $result = require __DIR__.'/../mock/fi/test.php';
 
         $expected = [
@@ -86,6 +89,7 @@ class TranslateCommandTest extends TestCase
         ];
      
         $this->assertEquals($result, $expected);
+        
     }
 
     public function test_env_variable_verification() {
