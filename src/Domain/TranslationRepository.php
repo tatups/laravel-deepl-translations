@@ -113,7 +113,7 @@ class TranslationRepository
             //To the final format
             $new = $this->varExport($new);
                
-            file_put_contents($toPath.DIRECTORY_SEPARATOR.$filename, '<?php \\n\\n return ' . $new . ';');
+            file_put_contents($toPath.DIRECTORY_SEPARATOR.$filename, '<?php '.PHP_EOL.PHP_EOL.'return ' . $new . ';');
             
         }
         
