@@ -41,10 +41,9 @@ class TranslatableChunk
      */
     public function getTranslationStrings(Collection $resultValues, $toLanguage) 
     {
-        $existing = $this->translatables->keyBy->getFullTranslationKey()->map->getValue();
         $new = $this->getTranslatablesWithoutTranslation($toLanguage)->map->getFullTranslationKey()->combine($resultValues);
    
-        return  $existing->merge($new)->map(function($item, $key) {
+        return $new->map(function($item, $key) {
             $parts = explode('.', $key);
             $filename = $parts[0].'.php';
             

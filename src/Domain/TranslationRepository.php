@@ -113,7 +113,7 @@ class TranslationRepository
             //To the final format
             $new = $this->varExport($new);
                
-            file_put_contents($toPath.DIRECTORY_SEPARATOR.$filename, '<?php return ' . $new . ';');
+            file_put_contents($toPath.DIRECTORY_SEPARATOR.$filename, '<?php \\n\\n return ' . $new . ';');
             
         }
         
