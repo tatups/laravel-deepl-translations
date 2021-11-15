@@ -64,7 +64,7 @@ class TranslateCommand extends Command
             $service->translate($fromLanguage, $toLanguage);
         }
         
-        return Command::SUCCESS;
+        return 0;
     }
 
     protected function verifyEnv() {
