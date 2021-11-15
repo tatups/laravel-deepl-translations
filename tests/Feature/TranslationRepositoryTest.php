@@ -21,7 +21,7 @@ class TranslationRepositoryTest extends TestCase
 
 
         $repo = new TranslationRepository(2, __DIR__.'/../mock');
-        $chunked = $repo->getTranslatables('en');
+        $chunked = $repo->getTranslatables('en', ['test.php']);
        
         $this->assertEquals(2, $chunked->count());
 

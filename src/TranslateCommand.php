@@ -22,7 +22,7 @@ class TranslateCommand extends Command
      *
      * @var string
      */
-    protected $signature = 'deepl-translate';
+    protected $signature = 'deepl-translate {--filenames=}';
 
     /**
      * The console command description.
@@ -57,11 +57,12 @@ class TranslateCommand extends Command
         $this->info('Proceeding to generate translation files from '.$fromLanguage.
         ' to '.implode(',', $toLanguages));
 
-     
+        $filenames = $this->option('filenames') ?  explode(',', $this->option('filenames')) : null;
+
         foreach($toLanguages as $toLanguage) {
             
             $this->info("Translating from $fromLanguage to $toLanguage...");
-            $service->translate($fromLanguage, $toLanguage);
+            $service->translate($fromLanguage, $toLanguage, $filenames);
         }
         
         return 0;

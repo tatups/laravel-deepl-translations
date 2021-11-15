@@ -26,9 +26,9 @@ class TranslationService
      * @param string $toLanguage
      * @return void
      */
-    public function translate(string $fromLanguage, string $toLanguage) {
+    public function translate(string $fromLanguage, string $toLanguage, ?array $filenames=null) {
 
-        $translatableChunks = $this->repo->getTranslatables($fromLanguage);
+        $translatableChunks = $this->repo->getTranslatables($fromLanguage, $filenames);
 
         $localeResults = collect();
 

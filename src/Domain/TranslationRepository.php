@@ -24,12 +24,15 @@ class TranslationRepository
      *
      * @return Collection|TranslatableChunk[]
      */
-    public function getTranslatables(string $locale) {
+    public function getTranslatables(string $locale, ?array $filenames=null) {
 
         $sourcePath = $this->basePath.DIRECTORY_SEPARATOR.$locale;
         $files = collect(scandir($sourcePath));
 
-        $files = $files->filter(function($value) {
+        $files = $files->filter(function($value)use($filenames){
+            if($filenames !== null) {
+                return in_array($value, $filenames);
+            }
             return str_contains($value, '.php');
         });
 
