@@ -104,7 +104,10 @@ class TranslationRepository
         
             //Merge not overwriting existing values
             $merged = $translations->merge($existing);
-            
+            $existingOrder = array_flip(array_keys($existing));
+            $merged = $merged->sortBy(function($item, $key)use($existingOrder){
+                return $existingOrder[$key] ?? 1000000;
+            });
             $new = [];
             //Convert from dot keyed to multidimensional array
             foreach($merged as $key => $value) {
