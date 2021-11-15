@@ -23,11 +23,15 @@ class TranslatableChunk
     }
 
     public function getTranslatableStringsWithoutTranslation(string $targetLocale) {
-        return $this->translatables->reject->existsFor($targetLocale)->map->getValue()->values();
+        return $this->getTranslatablesWithoutTranslation($targetLocale)->map->getValue()->values();
     }
 
     public function getKeyedTranslatables() {
         return $this->translatables;
+    }
+
+    public function getTranslatablesWithoutTranslation(string $targetLocale) {
+        return $this->translatables->reject->existsFor($targetLocale);
     }
 
 
@@ -35,9 +39,12 @@ class TranslatableChunk
      * @param Collection|string[] $resultValues result strings of this chunk
      * @return Collection|TranslationString[] translation results
      */
-    public function getTranslationStrings(Collection $resultValues) 
+    public function getTranslationStrings(Collection $resultValues, $toLanguage) 
     {
-        return  $this->translatables->keys()->combine($resultValues)->map(function($item, $key) {
+        $existing = $this->translatables->keyBy->getFullTranslationKey()->map->getValue();
+        $new = $this->getTranslatablesWithoutTranslation($toLanguage)->map->getFullTranslationKey()->combine($resultValues);
+   
+        return  $existing->merge($new)->map(function($item, $key) {
             $parts = explode('.', $key);
             $filename = $parts[0].'.php';
             
@@ -47,6 +54,5 @@ class TranslatableChunk
             return new TranslationString($filename, $translationKey, $item);
         })->values();
     }
-
 
 }

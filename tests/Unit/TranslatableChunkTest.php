@@ -17,7 +17,7 @@ class TranslatableChunkTest extends TestCase
             new TranslationString('test', 'hii', 'hii :placeholder :placeholder2'),
         ]));
 
-        $result = $chunk->getTranslationStrings(collect(['translated hii <x>:placeholder</x> <x>:placeholder2</x>']));
+        $result = $chunk->getTranslationStrings(collect(['translated hii <x>:placeholder</x> <x>:placeholder2</x>']), 'fi');
 
         $this->assertEquals($result->first()->getValue(),  'translated hii :placeholder :placeholder2');
     }

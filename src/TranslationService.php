@@ -42,7 +42,7 @@ class TranslationService
                 return $item['text'];
             });
         
-            $localeResults = $localeResults->merge($chunk->getTranslationStrings($values));
+            $localeResults = $localeResults->merge($chunk->getTranslationStrings($values, $toLanguage));
         
         }
         $this->repo->storeTranslationStrings($localeResults, $toLanguage);
