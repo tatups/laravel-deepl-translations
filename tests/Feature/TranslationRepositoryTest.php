@@ -40,7 +40,7 @@ class TranslationRepositoryTest extends TestCase
 
         $data = [
             'key'=>'value',
-            'placeholders_containing_key'=>'value :placeholder1 :placeholder2',
+            'placeholders_containing_key'=>'value :placeholder1 :placeholder2 huuhii :attribute',
             'nested'=>[
                 'nested_key'=>'nested value',
                 'more_nesting'=>[
@@ -58,7 +58,7 @@ class TranslationRepositoryTest extends TestCase
         $this->assertEquals(4, $results->count());
      
         $this->assertEquals('value', $results->get('test.key')->getValue());
-        $this->assertEquals('value <x>:placeholder1</x> <x>:placeholder2</x>', $results->get('test.placeholders_containing_key')->getValue());
+        $this->assertEquals('value <x>:placeholder1</x> <x>:placeholder2</x> huuhii <x>:attribute</x>', $results->get('test.placeholders_containing_key')->getValue());
         $this->assertEquals('nested value', $results->get('test.nested.nested_key')->getValue());
 
         $this->assertEquals('value', $results->get('test.nested.more_nesting.key')->getValue());
