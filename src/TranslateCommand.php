@@ -16,6 +16,7 @@ class TranslateCommand extends Command
     public const DEEPL_API_CHUNK_SIZE = 'DEEPL_API_CHUNK_SIZE';
     public const DEEPL_TO_LANGUAGES = 'DEEPL_TO_LANGUAGES';
     public const DEEPL_FROM_LANGUAGE = 'DEEPL_FROM_LANGUAGE';
+    public const DEEPL_TRANSLATIONS_FOLDER= 'DEEPL_TRANSLATIONS_FOLDER';
 
     /**
      * The name and signature of the console command.
@@ -74,9 +75,12 @@ class TranslateCommand extends Command
             $apiKeyMissing = empty(config('deepl-translations.api_key')),
             $apiAddressMissing = empty(config('deepl-translations.api_address')),
             $apiFromLanguageMissing = empty(config('deepl-translations.from_language')),
-            $apiToLanguagesMissing =  empty(config('deepl-translations.to_languages'))
+            $apiToLanguagesMissing =  empty(config('deepl-translations.to_languages')),
+            $missingFolder = !is_dir(base_path(config('deepl-translations.translations_folder')))
+            
         ];
         $missingEnvs = !empty(array_filter($envCheck));
+
 
         $first = true;
         if($missingEnvs) {
@@ -105,8 +109,13 @@ class TranslateCommand extends Command
             $value = $this->ask('Please enter the languages you want to create translations for [fi,sv]', 'fi,sv');
             $this->writeNewEnvironmentFileWith(self::DEEPL_TO_LANGUAGES, $value, $first);
             $first = false;
-
         }    
+
+        if($missingFolder) {
+            $value = $this->ask('Please enter the path to the translations folder');
+            $this->writeNewEnvironmentFileWith(self::DEEPL_TRANSLATIONS_FOLDER, $value, $first);
+            $first = false;
+        }  
 
         if($missingEnvs) {
             $this->info('DeepL configuration initialized. Please run the command again to generate your translations.');

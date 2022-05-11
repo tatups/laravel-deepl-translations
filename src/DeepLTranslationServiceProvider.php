@@ -31,7 +31,7 @@ class DeepLTranslationServiceProvider extends \Illuminate\Support\ServiceProvide
 
             $this->app->singleton(TranslationService::class, function ($app) {
               
-                $repo = new TranslationRepository(config('deepl-translations.api_chunk_size'), base_path('resources/lang'));
+                $repo = new TranslationRepository(config('deepl-translations.api_chunk_size'), base_path(config('deepl-translations.translations_folder')));
     
                 return new TranslationService($repo, $app[DeepL::class]);
             });

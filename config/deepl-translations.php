@@ -8,4 +8,6 @@ return [
     'api_chunk_size'=>env('DEEPL_API_CHUNK_SIZE', 50),
     'from_language'=>env('DEEPL_FROM_LANGUAGE'),
     'to_languages'=>env('DEEPL_TO_LANGUAGES') ? explode(',', env('DEEPL_TO_LANGUAGES')) : [],
+    'translations_folder'=>env('DEEPL_TRANSLATIONS_FOLDER', 'resources/lang')
+
 ];
